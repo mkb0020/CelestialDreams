@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLEEPY STARS</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <img class="cockpit" src="/cockpit.png">
+
+  <div class="controls-panel panel-left">
+    <div class="panel-header">
+      <div class="panel-dot"></div>
+      <span class="panel-title">SOUND CHANNEL</span>
+      <div class="panel-dot"></div>
+    </div>
+    <div id="sound-controls" class="sound-controls"></div>
+    <input type="file" id="custom-audio-input" accept="audio/*" style="display:none;">
+  </div>
+
+  <div class="controls-panel panel-right">
+
+    <div class="slider-row">
+      <span class="slider-label">VOL</span>
+      <div class="slider-track-wrap">
+        <input
+          id="volume-slider"
+          class="cockpit-slider"
+          type="range"
+          min="0" max="1" step="0.01"
+          value="0.5"
+        >
+      </div>
+      <span class="slider-readout"><span id="volume-value">50</span></span>
+    </div>
+
+    <div class="slider-row">
+      <span class="slider-label">HUE</span>
+      <div class="slider-track-wrap">
+        <input
+          id="hue-slider"
+          class="cockpit-slider"
+          type="range"
+          min="0" max="0.3" step="0.001"
+          value="0.03"
+        >
+      </div>
+      <span class="slider-readout"><span id="hue-value">1.0</span></span>
+    </div>
+
+    <div class="slider-row">
+      <span class="slider-label">SPEED</span>
+      <div class="slider-track-wrap">
+        <input
+          id="speed-slider"
+          class="cockpit-slider"
+          type="range"
+          min="0.5" max="20" step="0.5"
+          value="4"
+        >
+      </div>
+      <span class="slider-readout"><span id="speed-value">4.0</span></span>
+    </div>
+
+    <div class="slider-row">
+      <span class="slider-label">STARS</span>
+      <div class="slider-track-wrap">
+        <input
+          id="stars-slider"
+          class="cockpit-slider"
+          type="range"
+          min="100" max="5000" step="100"
+          value="1500"
+        >
+      </div>
+      <span class="slider-readout"><span id="stars-value">1500</span></span>
+    </div>
+
+  </div>
+
+  <button id="panel-toggle" class="panel-toggle" title="SHOW / HIDE CONTROLS">
+    <span class="panel-toggle-icon">⌘</span>
+  </button>
+
+  <script type="module" src="/src/main.js"></script>
+
+</body>
+</html>

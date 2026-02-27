@@ -1,0 +1,448 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  margin: 0;
+  background: #000000;
+}
+
+.cockpit {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ============================ FONTS ============================ */
+@font-face {
+  font-family: 'GothNerd';
+  src: url('../assets/fonts/GothNerd.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SpaceLetters';
+  src: url('../assets/fonts/SpaceLetters.ttf') format('truetype');
+}
+
+/* ============================ PANEL TOGGLE ============================ */
+
+.panel-toggle {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  background: rgba(8, 18, 16, 0.85);
+  border: 1px solid rgba(103, 254, 189, 0.35);
+  color: rgba(103, 254, 189, 0.6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 0 12px rgba(103, 254, 189, 0.15),
+    inset 0 1px 0 rgba(103, 254, 189, 0.08);
+
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.panel-toggle:hover {
+  border-color: rgba(103, 254, 189, 0.7);
+  color: rgba(220, 255, 240, 0.95);
+  box-shadow:
+    0 0 18px rgba(103, 254, 189, 0.35),
+    inset 0 1px 0 rgba(103, 254, 189, 0.15);
+}
+
+.panel-toggle.panels-hidden {
+  border-color: rgba(103, 254, 189, 0.2);
+  color: rgba(103, 254, 189, 0.3);
+  box-shadow: none;
+}
+
+.panel-toggle-icon {
+  font-size: 13px;
+  line-height: 1;
+  user-select: none;
+}
+
+.controls-panel {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.controls-panel.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+
+/* ============================ CONTROLS PANEL ============================ */
+
+.controls-panel {
+  position: absolute;
+  z-index: 20;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  border: 1px solid rgba(103, 254, 189, 0.25);
+  border-top: 1px solid rgba(103, 254, 189, 0.4);
+  border-radius: 4px;
+  padding: 20px 20px 16px;
+
+  box-shadow:
+    0 0 30px rgba(103, 254, 189, 0.12),
+    0 0 1px rgba(103, 254, 189, 0.5),
+    inset 0 1px 0 rgba(103, 254, 189, 0.08);
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(103, 254, 189, 0.03) 2px,
+      rgba(103, 254, 189, 0.03) 4px
+    ),
+    linear-gradient(
+      160deg,
+      rgba(8, 18, 16, 0.92) 0%,
+      rgba(4, 10, 9, 0.96) 100%
+    );
+}
+
+.controls-panel::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(103, 254, 189, 0.8),
+    transparent
+  );
+  border-radius: 2px;
+}
+
+/* ============================ PANEL POSITIONS ============================ */
+
+.panel-left {
+  top: 20px;
+  left: 3%;
+  min-width: 300px;
+}
+
+.panel-right {
+  top: 20px;
+  right: 3%;
+  min-width: 300px;
+}
+
+ @media (max-width: 980px)  {
+
+.panel-left {
+  bottom: 1%;
+  left: 2%;
+  min-width: 160px;
+}
+
+.panel-right {
+  bottom: 1%;
+  right: 2%;
+  min-width: 220px;
+}
+
+}
+
+/* ============================ PANEL HEADER ============================ */
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 1px;
+}
+
+.panel-title {
+    font-family: 'SpaceLetters';
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: rgba(103, 254, 189, 0.5);
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.panel-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(103, 254, 189, 0.35);
+  flex-shrink: 0;
+}
+
+/* ============================ SOUND BUTTONS ============================ */
+
+.sound-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.sound-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 7px 8px 7px;
+  cursor: pointer;
+  width: 100%;
+
+  background: rgba(10, 20, 25, 0.8);
+  border: 1px solid rgba(103, 254, 189, 0.3);
+  border-radius: 3px;
+  color: rgba(103, 254, 189, 0.6);
+
+    font-family: 'SpaceLetters';
+  font-size: 10px;
+  letter-spacing: 0.18em;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  box-shadow:
+    inset 0 1px 0 rgba(103, 254, 189, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.sound-btn:hover {
+  background: rgba(20, 40, 35, 0.85);
+  border-color: rgba(103, 254, 189, 0.55);
+  color: rgba(220, 255, 240, 0.9);
+  box-shadow:
+    0 0 12px rgba(103, 254, 189, 0.25),
+    inset 0 1px 0 rgba(103, 254, 189, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.sound-btn--custom {
+  border-style: dashed;
+  border-color: rgba(103, 254, 189, 0.25);
+  color: rgba(103, 254, 189, 0.45);
+  margin-top: 2px;
+}
+
+.sound-btn--custom:hover {
+  border-style: dashed;
+  border-color: rgba(103, 254, 189, 0.6);
+  color: rgba(220, 255, 240, 0.9);
+}
+
+.sound-btn--custom.active {
+  border-style: solid;
+}
+
+.indicator {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(70, 180, 140, 0.6);
+  border: 1px solid rgba(103, 254, 189, 0.4);
+  flex-shrink: 0;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.sound-btn.active {
+  background: rgba(10, 28, 25, 0.9);
+  border-color: rgba(103, 254, 189, 0.7);
+  color: rgba(220, 255, 240, 1);
+  box-shadow:
+    0 0 16px rgba(103, 254, 189, 0.3),
+    0 0 4px rgba(103, 254, 189, 0.15),
+    inset 0 1px 0 rgba(103, 254, 189, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.sound-btn.active .indicator {
+  background: rgba(103, 254, 189, 0.95);
+  box-shadow:
+    0 0 6px rgba(103, 254, 189, 0.9),
+    0 0 12px rgba(103, 254, 189, 0.5);
+  border-color: rgba(220, 255, 240, 0.9);
+  animation: pulse-led 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-led {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
+
+.sound-btn.loading {
+  border-color: rgba(103, 254, 189, 0.4);
+  color: rgba(150, 255, 210, 0.7);
+}
+
+.sound-btn.loading .indicator {
+  background: rgba(103, 254, 189, 0.5);
+  animation: spin-load 0.8s linear infinite;
+  border-radius: 50%;
+  border-top-color: rgba(220, 255, 240, 0.9);
+}
+
+@keyframes spin-load {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.label {
+  user-select: none;
+}
+
+/* ============================ SLIDERS ============================ */
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.slider-label {
+  font-family: 'SpaceLetters';
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(103, 254, 189, 0.5);
+  user-select: none;
+  width: 48px;        
+  white-space: nowrap; 
+  flex-shrink: 0;
+}
+
+@media (max-width: 980px) {
+  .slider-label {
+    font-size: 8px;
+    width: 40px;
+    white-space: nowrap;
+  }
+}
+
+.slider-track-wrap {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.slider-readout {
+    font-family: 'SpaceLetters';
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: rgba(103, 254, 189, 0.7);
+  text-align: right;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.cockpit-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+
+  background: linear-gradient(
+    to right,
+    rgba(103, 254, 189, 0.85) 0%,
+    rgba(103, 254, 189, 0.85) var(--fill-pct, 50%),
+    rgba(40, 100, 80, 0.5) var(--fill-pct, 50%),
+    rgba(40, 100, 80, 0.5) 100%
+  );
+
+  box-shadow: 0 0 6px rgba(103, 254, 189, 0.3);
+  transition: box-shadow 0.2s ease;
+}
+
+.cockpit-slider:hover {
+  box-shadow: 0 0 10px rgba(103, 254, 189, 0.45);
+}
+
+.cockpit-slider::-webkit-slider-thumb,
+.cockpit-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 35%,
+    rgba(220, 255, 240, 0.95),
+    rgba(103, 254, 189, 0.9)
+  );
+  border: 1px solid rgba(180, 255, 220, 0.8);
+  box-shadow:
+    0 0 8px rgba(103, 254, 189, 0.8),
+    0 0 2px rgba(220, 255, 240, 0.9);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cockpit-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow:
+    0 0 14px rgba(103, 254, 189, 1),
+    0 0 4px rgba(220, 255, 240, 1);
+}
+
+.cockpit-slider::-moz-range-track {
+  background: transparent;
+  height: 3px;
+}
+
+ @media (max-width: 980px) {
+.panel-title {
+  font-size: 8px;
+  letter-spacing: 0.25em;
+
+}
+
+.panel-dot {
+  width: 2px;
+  height: 2px;
+}
+
+.sound-btn,
+.slider-label  {
+  font-size: 8px;
+}
+
+
+
+ }
